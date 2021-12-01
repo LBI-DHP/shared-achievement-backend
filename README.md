@@ -6,6 +6,6 @@ Install local mysql database and create database "shared-achievement-db".
 
 Set Spring Boot Application Properties accordingly (src/main/resources/application.properties).
 
-Run application (automatically includes Tomcat).
+Run application (default embedded in Tomcat).
 
 Check API on http://localhost:8080/swagger-ui/ .
