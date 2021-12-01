@@ -4,7 +4,7 @@ Java Spring Boot Application (entity-first approach):
 
 Install local mysql database and create database "shared-achievement-db".
 
-Set Spring Boot Application Properties accordingly (data source properties).
+Set Spring Boot Application Properties accordingly (src/main/resources/application.properties).
 
 Run application (automatically includes Tomcat).
 
