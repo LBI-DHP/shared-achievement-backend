@@ -1,5 +1,6 @@
 package at.lbg.dhp.sharedachievementbackend.service;
 
+import at.lbg.dhp.sharedachievementbackend.data.dto.SimpleStepCountDTO;
 import at.lbg.dhp.sharedachievementbackend.data.dto.StepCountDTO;
 import at.lbg.dhp.sharedachievementbackend.data.dto.StepCountIdDTO;
 import at.lbg.dhp.sharedachievementbackend.data.dto.StepCountTodayDTO;
@@ -129,7 +130,7 @@ public class StepCountService {
         return stepCountDTOs;
     }
 
-    public int getStepCountByPersonIdForToday(String personId) {
+    public SimpleStepCountDTO getStepCountByPersonIdForToday(String personId) {
 
         StepCountId id = new StepCountId();
         id.setPerson(personId);
@@ -137,11 +138,13 @@ public class StepCountService {
 
         Optional<StepCount> stepCount = stepCountRepository.findById(id);
 
+        SimpleStepCountDTO simpleStepCountDTO = new SimpleStepCountDTO();
+
         if (stepCount.isPresent()) {
-            return stepCount.get().getSteps();
+            simpleStepCountDTO.setSteps(stepCount.get().getSteps());
         }
 
-        return 0;
+        return simpleStepCountDTO;
     }
 
 }

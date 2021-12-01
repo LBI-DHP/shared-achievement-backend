@@ -1,5 +1,6 @@
 package at.lbg.dhp.sharedachievementbackend.web;
 
+import at.lbg.dhp.sharedachievementbackend.data.dto.SimpleStepCountDTO;
 import at.lbg.dhp.sharedachievementbackend.data.dto.StepCountDTO;
 import at.lbg.dhp.sharedachievementbackend.data.dto.StepCountIdDTO;
 import at.lbg.dhp.sharedachievementbackend.data.dto.StepCountTodayDTO;
@@ -31,8 +32,8 @@ public class StepCountController {
     }
 
     @GetMapping("/findByPersonIdForToday")
-    public ResponseEntity<Integer> getStepCountByPersonIdForToday(String personId) {
-        int stepCount = stepCountService.getStepCountByPersonIdForToday(personId);
+    public ResponseEntity<SimpleStepCountDTO> getStepCountByPersonIdForToday(String personId) {
+        SimpleStepCountDTO stepCount = stepCountService.getStepCountByPersonIdForToday(personId);
         return new ResponseEntity<>(stepCount, HttpStatus.OK);
     }
 
