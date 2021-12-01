@@ -1,7 +1,6 @@
 package at.lbg.dhp.sharedachievementbackend;
 
 import at.lbg.dhp.sharedachievementbackend.data.dto.*;
-import at.lbg.dhp.sharedachievementbackend.data.models.StepCount;
 import at.lbg.dhp.sharedachievementbackend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Component
 public class InitializeDB implements ApplicationRunner {

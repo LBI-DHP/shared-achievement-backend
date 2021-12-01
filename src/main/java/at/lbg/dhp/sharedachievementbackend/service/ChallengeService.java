@@ -1,12 +1,8 @@
 package at.lbg.dhp.sharedachievementbackend.service;
 
 import at.lbg.dhp.sharedachievementbackend.data.dto.ChallengeDTO;
-import at.lbg.dhp.sharedachievementbackend.data.dto.PersonDTO;
 import at.lbg.dhp.sharedachievementbackend.data.models.Challenge;
-import at.lbg.dhp.sharedachievementbackend.data.models.Person;
 import at.lbg.dhp.sharedachievementbackend.data.repository.ChallengeRepository;
-import at.lbg.dhp.sharedachievementbackend.data.repository.PersonRepository;
-import at.lbg.dhp.sharedachievementbackend.data.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +51,7 @@ public class ChallengeService {
         List<Challenge> challenges = challengeRepository.findAll();
 
         List<ChallengeDTO> challengeDTOs = new LinkedList<>();
-        for(Challenge challenge : challenges){
+        for (Challenge challenge : challenges) {
             ChallengeDTO challengeDTO = new ChallengeDTO();
             challengeDTO.setName(challenge.getName());
             challengeDTO.setSteps(challenge.getSteps());

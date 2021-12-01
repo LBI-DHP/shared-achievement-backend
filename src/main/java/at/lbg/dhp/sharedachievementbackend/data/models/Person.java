@@ -24,6 +24,6 @@ public class Person {
     @ManyToOne
     private Team team;
 
-    @OneToMany(mappedBy="person", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private List<StepCount> stepCounts;
 }

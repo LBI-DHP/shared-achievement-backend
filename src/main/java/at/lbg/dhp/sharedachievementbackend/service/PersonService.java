@@ -8,12 +8,6 @@ import at.lbg.dhp.sharedachievementbackend.data.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -61,10 +55,9 @@ public class PersonService {
         PersonDTO personDTO = new PersonDTO();
         personDTO.setId(person.getId());
         personDTO.setName(person.getName());
-        if(person.getTeam() != null) {
+        if (person.getTeam() != null) {
             personDTO.setTeamName(person.getTeam().getName());
-        }
-        else{
+        } else {
             personDTO.setTeamName(null);
         }
 
@@ -75,26 +68,25 @@ public class PersonService {
         List<Person> persons = personRepository.findAll();
 
         List<PersonDTO> personDTOs = new LinkedList<>();
-        for(Person person : persons){
+        for (Person person : persons) {
             PersonDTO personDTO = new PersonDTO();
             personDTO.setId(person.getId());
             personDTO.setName(person.getName());
-            if(person.getTeam() != null) {
+            if (person.getTeam() != null) {
                 personDTO.setTeamName(person.getTeam().getName());
-            }
-            else {
+            } else {
                 personDTO.setTeamName(null);
             }
             personDTOs.add(personDTO);
         }
 
-        return  personDTOs;
+        return personDTOs;
     }
 
-    public int getStepCountOfPerson(String id){
+    public int getStepCountOfPerson(String id) {
         int steps = 0;
 
-        for(StepCount stepCount : personRepository.getById(id).getStepCounts()){
+        for (StepCount stepCount : personRepository.getById(id).getStepCounts()) {
             steps = steps + stepCount.getSteps();
         }
 

@@ -1,12 +1,11 @@
 package at.lbg.dhp.sharedachievementbackend.service;
 
-import at.lbg.dhp.sharedachievementbackend.data.dto.StepCountDTO;
-import at.lbg.dhp.sharedachievementbackend.data.dto.StepCountIdDTO;
 import at.lbg.dhp.sharedachievementbackend.data.dto.SubChallengeDTO;
 import at.lbg.dhp.sharedachievementbackend.data.dto.SubChallengeIdDTO;
-import at.lbg.dhp.sharedachievementbackend.data.models.*;
+import at.lbg.dhp.sharedachievementbackend.data.models.Challenge;
+import at.lbg.dhp.sharedachievementbackend.data.models.SubChallenge;
+import at.lbg.dhp.sharedachievementbackend.data.models.SubChallengeId;
 import at.lbg.dhp.sharedachievementbackend.data.repository.ChallengeRepository;
-import at.lbg.dhp.sharedachievementbackend.data.repository.PersonRepository;
 import at.lbg.dhp.sharedachievementbackend.data.repository.SubChallengeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,7 +76,7 @@ public class SubChallengeService {
         List<SubChallenge> subChallenges = subChallengeRepository.findAll();
 
         List<SubChallengeDTO> subChallengeDTOs = new LinkedList<>();
-        for(SubChallenge subChallenge : subChallenges){
+        for (SubChallenge subChallenge : subChallenges) {
             SubChallengeDTO subChallengeDTO = new SubChallengeDTO();
             subChallengeDTO.setChallengeName(subChallenge.getChallenge().getName());
             subChallengeDTO.setSteps(subChallenge.getSteps());
@@ -93,9 +92,9 @@ public class SubChallengeService {
         List<SubChallenge> subChallenges = subChallengeRepository.findAll();
 
         List<SubChallengeDTO> subChallengeDTOs = new LinkedList<>();
-        for(SubChallenge subChallenge : subChallenges){
+        for (SubChallenge subChallenge : subChallenges) {
 
-            if(subChallenge.getChallenge().getName().equals(challengeName)) {
+            if (subChallenge.getChallenge().getName().equals(challengeName)) {
                 SubChallengeDTO subChallengeDTO = new SubChallengeDTO();
                 subChallengeDTO.setChallengeName(subChallenge.getChallenge().getName());
                 subChallengeDTO.setSteps(subChallenge.getSteps());

@@ -1,6 +1,5 @@
 package at.lbg.dhp.sharedachievementbackend.service;
 
-import at.lbg.dhp.sharedachievementbackend.data.dto.PersonDTO;
 import at.lbg.dhp.sharedachievementbackend.data.dto.StepCountDTO;
 import at.lbg.dhp.sharedachievementbackend.data.dto.StepCountIdDTO;
 import at.lbg.dhp.sharedachievementbackend.data.dto.StepCountTodayDTO;
@@ -52,18 +51,17 @@ public class StepCountService {
         }
     }
 
-    public void pushStepCountOfToday(StepCountTodayDTO stepCountTodayDTO){
+    public void pushStepCountOfToday(StepCountTodayDTO stepCountTodayDTO) {
         StepCountId id = new StepCountId();
         id.setPerson(stepCountTodayDTO.getPersonId());
         id.setDay(LocalDate.now());
 
         Optional<StepCount> stepCount = stepCountRepository.findById(id);
 
-        if(stepCount.isPresent()){
+        if (stepCount.isPresent()) {
             stepCount.get().setSteps(stepCountTodayDTO.getSteps());
             stepCountRepository.save(stepCount.get());
-        }
-        else {
+        } else {
             StepCount newStepCount = new StepCount();
             newStepCount.setDay(LocalDate.now());
             newStepCount.setSteps(stepCountTodayDTO.getSteps());
@@ -101,7 +99,7 @@ public class StepCountService {
         List<StepCount> stepCounts = stepCountRepository.findAll();
 
         List<StepCountDTO> stepCountDTOs = new LinkedList<>();
-        for(StepCount stepCount : stepCounts){
+        for (StepCount stepCount : stepCounts) {
             StepCountDTO stepCountDTO = new StepCountDTO();
             stepCountDTO.setPersonId(stepCount.getPerson().getId());
             stepCountDTO.setDay(stepCount.getDay());
@@ -117,9 +115,9 @@ public class StepCountService {
         List<StepCount> stepCounts = stepCountRepository.findAll();
 
         List<StepCountDTO> stepCountDTOs = new LinkedList<>();
-        for(StepCount stepCount : stepCounts){
+        for (StepCount stepCount : stepCounts) {
 
-            if(stepCount.getPerson().getId().equals(personId)) {
+            if (stepCount.getPerson().getId().equals(personId)) {
                 StepCountDTO stepCountDTO = new StepCountDTO();
                 stepCountDTO.setPersonId(stepCount.getPerson().getId());
                 stepCountDTO.setDay(stepCount.getDay());
@@ -131,7 +129,7 @@ public class StepCountService {
         return stepCountDTOs;
     }
 
-    public int getStepCountOfPersonToday(String personId){
+    public int getStepCountByPersonIdForToday(String personId) {
 
         StepCountId id = new StepCountId();
         id.setPerson(personId);
@@ -139,7 +137,7 @@ public class StepCountService {
 
         Optional<StepCount> stepCount = stepCountRepository.findById(id);
 
-        if(stepCount.isPresent()){
+        if (stepCount.isPresent()) {
             return stepCount.get().getSteps();
         }
 

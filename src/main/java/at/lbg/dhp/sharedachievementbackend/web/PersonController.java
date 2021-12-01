@@ -17,18 +17,19 @@ public class PersonController {
     PersonService personService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<PersonDTO>> getPersons () {
+    public ResponseEntity<List<PersonDTO>> getPersons() {
         List<PersonDTO> personDTOs = personService.getPersons();
         return new ResponseEntity<>(personDTOs, HttpStatus.OK);
     }
+
     @GetMapping("/find")
-    public ResponseEntity<PersonDTO> getPersonById (String id) {
+    public ResponseEntity<PersonDTO> getPersonById(String id) {
         PersonDTO personDTO = personService.getPerson(id);
         return new ResponseEntity<>(personDTO, HttpStatus.OK);
     }
 
     @GetMapping("/stepCount")
-    public ResponseEntity<Integer> getStepCountOfPerson (String id) {
+    public ResponseEntity<Integer> getStepCountOfPerson(String id) {
         int stepCount = personService.getStepCountOfPerson(id);
         return new ResponseEntity<>(stepCount, HttpStatus.OK);
     }

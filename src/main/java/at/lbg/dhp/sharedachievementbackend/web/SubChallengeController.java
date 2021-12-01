@@ -1,10 +1,7 @@
 package at.lbg.dhp.sharedachievementbackend.web;
 
-import at.lbg.dhp.sharedachievementbackend.data.dto.StepCountDTO;
-import at.lbg.dhp.sharedachievementbackend.data.dto.StepCountIdDTO;
 import at.lbg.dhp.sharedachievementbackend.data.dto.SubChallengeDTO;
 import at.lbg.dhp.sharedachievementbackend.data.dto.SubChallengeIdDTO;
-import at.lbg.dhp.sharedachievementbackend.service.StepCountService;
 import at.lbg.dhp.sharedachievementbackend.service.SubChallengeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,19 +18,19 @@ public class SubChallengeController {
     SubChallengeService subChallengeService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<SubChallengeDTO>> getSubChallenges () {
+    public ResponseEntity<List<SubChallengeDTO>> getSubChallenges() {
         List<SubChallengeDTO> subChallengeDTOs = subChallengeService.getSubChallenges();
         return new ResponseEntity<>(subChallengeDTOs, HttpStatus.OK);
     }
 
     @GetMapping("/findByChallengeByName")
-    public ResponseEntity<SubChallengeDTO> getSubChallengeByChallengeByName (SubChallengeIdDTO subChallengeIdDTO) {
+    public ResponseEntity<SubChallengeDTO> getSubChallengeByChallengeByName(SubChallengeIdDTO subChallengeIdDTO) {
         SubChallengeDTO subChallengeDTO = subChallengeService.getSubChallenge(subChallengeIdDTO);
         return new ResponseEntity<>(subChallengeDTO, HttpStatus.OK);
     }
 
     @GetMapping("/findByChallenge")
-    public ResponseEntity<List<SubChallengeDTO>> getSubChallengesByChallenge (String challengeName) {
+    public ResponseEntity<List<SubChallengeDTO>> getSubChallengesByChallenge(String challengeName) {
         List<SubChallengeDTO> subChallengeDTOs = subChallengeService.getSubChallenges(challengeName);
         return new ResponseEntity<>(subChallengeDTOs, HttpStatus.OK);
     }

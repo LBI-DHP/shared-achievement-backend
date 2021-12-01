@@ -1,21 +1,18 @@
 package at.lbg.dhp.sharedachievementbackend.service;
 
-import at.lbg.dhp.sharedachievementbackend.data.dto.PersonDTO;
+import at.lbg.dhp.sharedachievementbackend.data.dto.RelativeStepsDTO;
+import at.lbg.dhp.sharedachievementbackend.data.dto.SimpleStepCountDTO;
 import at.lbg.dhp.sharedachievementbackend.data.dto.TeamDTO;
+import at.lbg.dhp.sharedachievementbackend.data.models.Challenge;
 import at.lbg.dhp.sharedachievementbackend.data.models.Person;
 import at.lbg.dhp.sharedachievementbackend.data.models.StepCount;
 import at.lbg.dhp.sharedachievementbackend.data.models.Team;
 import at.lbg.dhp.sharedachievementbackend.data.repository.ChallengeRepository;
 import at.lbg.dhp.sharedachievementbackend.data.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -61,10 +58,9 @@ public class TeamService {
 
         TeamDTO teamDTO = new TeamDTO();
         teamDTO.setName(team.getName());
-        if(team.getChallenge() != null){
+        if (team.getChallenge() != null) {
             teamDTO.setChallengeName(team.getChallenge().getName());
-        }
-        else {
+        } else {
             teamDTO.setChallengeName(null);
         }
 
@@ -75,13 +71,12 @@ public class TeamService {
         List<Team> teams = teamRepository.findAll();
 
         List<TeamDTO> teamDTOs = new LinkedList<>();
-        for(Team team : teams){
+        for (Team team : teams) {
             TeamDTO teamDTO = new TeamDTO();
             teamDTO.setName(team.getName());
-            if(team.getChallenge() != null){
+            if (team.getChallenge() != null) {
                 teamDTO.setChallengeName(team.getChallenge().getName());
-            }
-            else {
+            } else {
                 teamDTO.setChallengeName(null);
             }
             teamDTOs.add(teamDTO);
@@ -90,12 +85,12 @@ public class TeamService {
         return teamDTOs;
     }
 
-    public int getStepCountOfTeam(String name){
+    public int getStepCountOfTeam(String name) {
         int steps = 0;
 
         List<Person> persons = teamRepository.findById(name).get().getPersons();
-        for(Person person : persons){
-            for(StepCount stepCount : person.getStepCounts()){
+        for (Person person : persons) {
+            for (StepCount stepCount : person.getStepCounts()) {
                 steps = steps + stepCount.getSteps();
             }
         }
@@ -103,18 +98,41 @@ public class TeamService {
         return steps;
     }
 
-    public int getStepCountOfTeamToday(String name){
-        int steps = 0;
+    public SimpleStepCountDTO getStepCountOfTeamToday(String name) {
+
+        SimpleStepCountDTO simpleStepCountDTO = new SimpleStepCountDTO();
 
         List<Person> persons = teamRepository.findById(name).get().getPersons();
-        for(Person person : persons){
-            for(StepCount stepCount : person.getStepCounts()){
-                if(stepCount.getDay().equals(LocalDate.now())) {
+        for (Person person : persons) {
+            for (StepCount stepCount : person.getStepCounts()) {
+                if (stepCount.getDay().equals(LocalDate.now())) {
+                    simpleStepCountDTO.setSteps(simpleStepCountDTO.getSteps() + stepCount.getSteps());
+                }
+            }
+        }
+
+        return simpleStepCountDTO;
+    }
+
+    public RelativeStepsDTO getRelativeStepCountOfTeamTodayOfChallengeInPercent(String name) {
+
+        RelativeStepsDTO relativeStepsDTO = new RelativeStepsDTO();
+        int steps = 0;
+
+        Team team = teamRepository.findById(name).get();
+
+        List<Person> persons = team.getPersons();
+        for (Person person : persons) {
+            for (StepCount stepCount : person.getStepCounts()) {
+                if (stepCount.getDay().equals(LocalDate.now())) {
                     steps = steps + stepCount.getSteps();
                 }
             }
         }
 
-        return steps;
+        Challenge challenge = team.getChallenge();
+        relativeStepsDTO.setRelativeSteps((100 * steps) / challenge.getSteps());
+
+        return relativeStepsDTO;
     }
 }
