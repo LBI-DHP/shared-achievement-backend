@@ -31,11 +31,11 @@ public class InitializeDB implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        challengeService.createChallenge(new ChallengeDTO("Untersberg Hike", 100000));
+        challengeService.createChallenge(new ChallengeDTO("Untersberg Hike", 15000));
 
-        subChallengeService.createSubChallenge(new SubChallengeDTO("1/4 the Way Up!", 25000, "Untersberg Hike"));
-        subChallengeService.createSubChallenge(new SubChallengeDTO("1/2 the Way Up!", 50000, "Untersberg Hike"));
-        subChallengeService.createSubChallenge(new SubChallengeDTO("3/4 the Way Up!", 75000, "Untersberg Hike"));
+        subChallengeService.createSubChallenge(new SubChallengeDTO("1/4 the Way Up!", 3750, "Untersberg Hike"));
+        subChallengeService.createSubChallenge(new SubChallengeDTO("1/2 the Way Up!", 7500, "Untersberg Hike"));
+        subChallengeService.createSubChallenge(new SubChallengeDTO("3/4 the Way Up!", 11250, "Untersberg Hike"));
 
         teamService.createTeam(new TeamDTO("LBI", "Untersberg Hike"));
 
