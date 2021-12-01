@@ -1,0 +1,104 @@
+package at.lbg.dhp.sharedachievementbackend.service;
+
+import at.lbg.dhp.sharedachievementbackend.data.dto.PersonDTO;
+import at.lbg.dhp.sharedachievementbackend.data.models.Person;
+import at.lbg.dhp.sharedachievementbackend.data.models.StepCount;
+import at.lbg.dhp.sharedachievementbackend.data.repository.PersonRepository;
+import at.lbg.dhp.sharedachievementbackend.data.repository.TeamRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class PersonService {
+
+    @Autowired
+    PersonRepository personRepository;
+
+    @Autowired
+    TeamRepository teamRepository;
+
+    public void createPerson(PersonDTO personDTO) {
+        Person person = new Person();
+        person.setId(personDTO.getId());
+        person.setName(personDTO.getName());
+        if (personDTO.getTeamName() != null)
+            person.setTeam(teamRepository.findById(personDTO.getTeamName()).get());
+        personRepository.save(person);
+    }
+
+    public void updatePerson(PersonDTO personDTO) {
+        Optional<Person> person = personRepository.findById(personDTO.getId());
+        if (person.isEmpty()) {
+            // exception
+        } else {
+            person.get().setName(personDTO.getName());
+            if (personDTO.getTeamName() == null)
+                person.get().setTeam(null);
+            else {
+                person.get().setTeam(teamRepository.findById(personDTO.getTeamName()).get());
+            }
+            personRepository.save(person.get());
+        }
+    }
+
+    public void deletePerson(String id) {
+        personRepository.deleteById(id);
+    }
+
+    public PersonDTO getPerson(String id) {
+        Person person = personRepository.findById(id).get();
+
+        PersonDTO personDTO = new PersonDTO();
+        personDTO.setId(person.getId());
+        personDTO.setName(person.getName());
+        if(person.getTeam() != null) {
+            personDTO.setTeamName(person.getTeam().getName());
+        }
+        else{
+            personDTO.setTeamName(null);
+        }
+
+        return personDTO;
+    }
+
+    public List<PersonDTO> getPersons() {
+        List<Person> persons = personRepository.findAll();
+
+        List<PersonDTO> personDTOs = new LinkedList<>();
+        for(Person person : persons){
+            PersonDTO personDTO = new PersonDTO();
+            personDTO.setId(person.getId());
+            personDTO.setName(person.getName());
+            if(person.getTeam() != null) {
+                personDTO.setTeamName(person.getTeam().getName());
+            }
+            else {
+                personDTO.setTeamName(null);
+            }
+            personDTOs.add(personDTO);
+        }
+
+        return  personDTOs;
+    }
+
+    public int getStepCountOfPerson(String id){
+        int steps = 0;
+
+        for(StepCount stepCount : personRepository.getById(id).getStepCounts()){
+            steps = steps + stepCount.getSteps();
+        }
+
+        return steps;
+    }
+
+}
