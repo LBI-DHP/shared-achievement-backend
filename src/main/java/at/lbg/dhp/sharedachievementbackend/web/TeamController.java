@@ -3,6 +3,7 @@ package at.lbg.dhp.sharedachievementbackend.web;
 import at.lbg.dhp.sharedachievementbackend.data.dto.RelativeStepsDTO;
 import at.lbg.dhp.sharedachievementbackend.data.dto.SimpleStepCountDTO;
 import at.lbg.dhp.sharedachievementbackend.data.dto.TeamDTO;
+import at.lbg.dhp.sharedachievementbackend.data.dto.TeamMembersDTO;
 import at.lbg.dhp.sharedachievementbackend.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,6 +47,12 @@ public class TeamController {
     public ResponseEntity<RelativeStepsDTO> getRelativeStepCountOfTeamTodayOfChallengeInPercent(String name) {
         RelativeStepsDTO relativeStepsDTO = teamService.getRelativeStepCountOfTeamTodayOfChallengeInPercent(name);
         return new ResponseEntity<>(relativeStepsDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/teamMembersStepCountOfToday")
+    public ResponseEntity<TeamMembersDTO> getTeamMembersStepCountOfToday(String name) {
+        TeamMembersDTO teamMembersDTO = teamService.getStepCountsOfTeamMembersToday(name);
+        return new ResponseEntity<>(teamMembersDTO, HttpStatus.OK);
     }
 
     @PostMapping("/add")
