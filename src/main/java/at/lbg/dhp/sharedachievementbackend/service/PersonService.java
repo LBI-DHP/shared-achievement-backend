@@ -25,8 +25,11 @@ public class PersonService {
         Person person = new Person();
         person.setId(personDTO.getId());
         person.setName(personDTO.getName());
-        if (personDTO.getTeamName() != null)
+        if (personDTO.getTeamName() != null){
             person.setTeam(teamRepository.findById(personDTO.getTeamName()).get());
+        }
+            
+        person.calculateBMI();
         personRepository.save(person);
     }
 
@@ -41,6 +44,7 @@ public class PersonService {
             else {
                 person.get().setTeam(teamRepository.findById(personDTO.getTeamName()).get());
             }
+            person.get().calculateBMI();
             personRepository.save(person.get());
         }
     }

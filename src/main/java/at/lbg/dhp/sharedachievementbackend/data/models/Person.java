@@ -16,6 +16,14 @@ import java.util.List;
 @NoArgsConstructor
 public class Person {
 
+
+    public enum PhysicalActivity {
+        PhysicallyActive,
+        ActiveButSedentary,
+        SlightlyActive,
+        ExtremelySedentary
+    }
+
     public enum Gender {
         Male, Female, Diverse, NoAnswer;
     }
@@ -35,10 +43,17 @@ public class Person {
 
     @Enumerated(EnumType.STRING)
     private Gender gender = Gender.NoAnswer;
-    private int age;
-    private int bodyWeight = 80;
-    private int bodyHeight = 170;
-    private int bodyMassIndex;
-    private float intendedActivityLevel;
+    private int age; // age in years
+    private int bodyWeight = 80; // weight in kilogtamm
+    private int bodyHeight = 170; // height in centimeters
+    private float bodyMassIndex;
+    
+    @Enumerated(EnumType.STRING)
+    private PhysicalActivity physicalActivity;
+
+    public void calculateBMI() {
+        float height = (float)this.bodyHeight / 100.0f;
+        this.bodyMassIndex = bodyWeight / (height*height);
+    }
 
 }
