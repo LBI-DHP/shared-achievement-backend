@@ -25,23 +25,23 @@ public class ChallengeController {
     @GetMapping("/find")
     public ResponseEntity<ChallengeDTO> getChallengeByName(String name) {
         ChallengeDTO challengeDTO = challengeService.getChallenge(name);
-        return new ResponseEntity<>(challengeDTO, HttpStatus.OK);
+        return new ResponseEntity<ChallengeDTO>(challengeDTO, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity addChallenge(@RequestBody ChallengeDTO challengeDTO) {
+    public ResponseEntity<ChallengeDTO>  addChallenge(@RequestBody ChallengeDTO challengeDTO) {
         challengeService.createChallenge(challengeDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity updateChallenge(@RequestBody ChallengeDTO challengeDTO) {
+    public ResponseEntity<ChallengeDTO>  updateChallenge(@RequestBody ChallengeDTO challengeDTO) {
         challengeService.updateChallenge(challengeDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity deleteChallenge(String name) {
+    public ResponseEntity<ChallengeDTO>  deleteChallenge(String name) {
         challengeService.deleteChallenge(name);
         return new ResponseEntity<>(HttpStatus.OK);
     }

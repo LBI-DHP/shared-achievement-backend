@@ -25,6 +25,7 @@ public class PersonService {
         Person person = new Person();
         person.setId(personDTO.getId());
         person.setName(personDTO.getName());
+        person.setExpoToken(personDTO.getExpoToken());
         if (personDTO.getTeamName() != null){
             person.setTeam(teamRepository.findById(personDTO.getTeamName()).get());
         }
@@ -44,7 +45,9 @@ public class PersonService {
             else {
                 person.get().setTeam(teamRepository.findById(personDTO.getTeamName()).get());
             }
+            person.get().setExpoToken(personDTO.getExpoToken());
             person.get().calculateBMI();
+
             personRepository.save(person.get());
         }
     }
@@ -59,6 +62,7 @@ public class PersonService {
         PersonDTO personDTO = new PersonDTO();
         personDTO.setId(person.getId());
         personDTO.setName(person.getName());
+        personDTO.setExpoToken(person.getExpoToken());
         if (person.getTeam() != null) {
             personDTO.setTeamName(person.getTeam().getName());
         } else {
@@ -76,6 +80,7 @@ public class PersonService {
             PersonDTO personDTO = new PersonDTO();
             personDTO.setId(person.getId());
             personDTO.setName(person.getName());
+            personDTO.setExpoToken(person.getExpoToken());
             if (person.getTeam() != null) {
                 personDTO.setTeamName(person.getTeam().getName());
             } else {

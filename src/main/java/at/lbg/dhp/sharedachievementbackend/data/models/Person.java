@@ -35,6 +35,12 @@ public class Person {
     @Column(unique = true)
     private String name;
 
+
+    @Column
+    private String expoToken;
+
+
+
     @ManyToOne
     private Team team;
 

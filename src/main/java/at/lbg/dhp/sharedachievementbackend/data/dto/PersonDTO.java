@@ -19,5 +19,7 @@ public class PersonDTO {
     private String name;
     @Nullable
     private String teamName;
+    @NotNull
+    private String expoToken;
 
 }

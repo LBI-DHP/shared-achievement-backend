@@ -39,13 +39,13 @@ public class InitializeDB implements ApplicationRunner {
 
         teamService.createTeam(new TeamDTO("LBI", "Untersberg Hike"));
 
-        personService.createPerson(new PersonDTO("0", "Sebastian", "LBI"));
-        personService.createPerson(new PersonDTO("1", "Jan", "LBI"));
-        personService.createPerson(new PersonDTO("2", "Daniela", "LBI"));
-        personService.createPerson(new PersonDTO("3", "Mohamed", "LBI"));
-        personService.createPerson(new PersonDTO("4", "Florian", "LBI"));
-        personService.createPerson(new PersonDTO("5", "Eva", "LBI"));
-        personService.createPerson(new PersonDTO("6", "Isabell", "LBI"));
+        personService.createPerson(new PersonDTO("0", "Sebastian", "LBI" ,"INVALID_TOKEN"));
+        personService.createPerson(new PersonDTO("1", "Jan", "LBI", "INVALID_TOKEN"));
+        personService.createPerson(new PersonDTO("2", "Daniela", "LBI", "INVALID_TOKEN"));
+        personService.createPerson(new PersonDTO("3", "Mohamed", "LBI", "INVALID_TOKEN"));
+        personService.createPerson(new PersonDTO("4", "Florian", "LBI", "INVALID_TOKEN"));
+        personService.createPerson(new PersonDTO("5", "Eva", "LBI", "INVALID_TOKEN"));
+        personService.createPerson(new PersonDTO("6", "Isabell", "LBI", "INVALID_TOKEN"));
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         stepCountService.createStepCount(new StepCountDTO("0", LocalDate.parse("2021-11-29"), 8500));
