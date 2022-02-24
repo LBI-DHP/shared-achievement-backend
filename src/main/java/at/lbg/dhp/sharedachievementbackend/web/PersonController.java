@@ -35,20 +35,20 @@ public class PersonController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity addPerson(@RequestBody PersonDTO personDTO) {
+    public ResponseEntity<PersonDTO> addPerson(@RequestBody PersonDTO personDTO) {
         personService.createPerson(personDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(personDTO, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity updatePerson(@RequestBody PersonDTO personDTO) {
+    public ResponseEntity<PersonDTO> updatePerson(@RequestBody PersonDTO personDTO) {
         personService.updatePerson(personDTO);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<PersonDTO>(personDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity deletePerson(String id) {
+    public ResponseEntity<String> deletePerson(String id) {
         personService.deletePerson(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<String>(id, HttpStatus.OK);
     }
 }

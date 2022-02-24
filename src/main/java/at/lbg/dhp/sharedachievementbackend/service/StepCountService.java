@@ -26,6 +26,9 @@ public class StepCountService {
     @Autowired
     PersonRepository personRepository;
 
+    @Autowired
+    NotificationService notificationService;
+
     public void createStepCount(StepCountDTO stepCountDTO) {
 
         StepCount stepCount = new StepCount();
@@ -50,6 +53,9 @@ public class StepCountService {
             stepCount.get().setSteps(stepCountDTO.getSteps());
             stepCountRepository.save(stepCount.get());
         }
+
+        Person person = personRepository.findById(stepCountDTO.getPersonId()).get();
+        notificationService.sendMessageToPerson(person.getId(), "pushed new steps", String.format("%s contributes %d steps.", person.getName(), stepCountDTO.getSteps()));
     }
 
     public void pushStepCountOfToday(StepCountTodayDTO stepCountTodayDTO) {
@@ -72,6 +78,9 @@ public class StepCountService {
 
             stepCountRepository.save(newStepCount);
         }
+        Person person = personRepository.findById(stepCountTodayDTO.getPersonId()).get();
+        notificationService.sendMessageToPerson(stepCountTodayDTO.getPersonId(), "pushed new steps", String.format("%s contributes %d steps.", person.getName(), stepCountTodayDTO.getSteps()));
+        
     }
 
     public void deleteStepCount(StepCountIdDTO stepCountIdDTO) {

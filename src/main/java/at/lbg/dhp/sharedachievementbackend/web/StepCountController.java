@@ -44,9 +44,9 @@ public class StepCountController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity addStepCount(@RequestBody StepCountDTO stepCountDTO) {
+    public ResponseEntity<StepCountDTO> addStepCount(@RequestBody StepCountDTO stepCountDTO) {
         stepCountService.createStepCount(stepCountDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<StepCountDTO>(HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
